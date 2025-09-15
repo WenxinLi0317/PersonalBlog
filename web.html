@@ -1,24 +1,36 @@
 
 
 <div style="text-align: center;">
-   
+
 <img src="image/journal.jpg" style="width:400px; height:auto;">
 
 <h1 style="font-size: 50;">
     MY PERSONAL BLOG
 </h1>
+
 <h3 style="font-size: 22;">
     Sep 15th, 2025 <br>
     <br>today my dog died.<br>
     <br>💔<br>
 </h3>
+
 </div >
 
 
-<div class="scroll" id="scarf" style="text-align: center;">
+<form id="nameForm">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="John"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  <input type="submit" value="Submit">
+</form>
 
-    
-</div>
-
-
+<script>
+document.getElementById("nameForm").addEventListener("submit", function(e) {
+  e.preventDefault(); // stop normal form submit
+  const fname = document.getElementById("fname").value;
+  const lname = document.getElementById("lname").value;
+  alert("You entered: " + fname + " " + lname);
+});
+</script>
 
