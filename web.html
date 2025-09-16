@@ -14,23 +14,30 @@
     <br>💔<br>
 </h3>
 
-</div >
-
-
-<form id="nameForm">
-  <label for="fname">First name:</label><br>
-  <input type="text" id="fname" name="fname" value="John"><br>
-  <label for="lname">Last name:</label><br>
-  <input type="text" id="lname" name="lname" value="Doe"><br><br>
-  <input type="submit" value="Submit">
+<form id="form">
+  <label >Title:</label><br>
+  <input type="text" id="title"><br>
+  <label >Blog Text:</label><br>
+  <input type="text" id="text" ><br><br>
+  <input type="submit" value="Done">
 </form>
 
+<div id="output"></div>
 <script>
-document.getElementById("nameForm").addEventListener("submit", function(e) {
-  e.preventDefault(); // stop normal form submit
-  const fname = document.getElementById("fname").value;
-  const lname = document.getElementById("lname").value;
-  alert("You entered: " + fname + " " + lname);
+  
+  const form = document.getElementById("form");
+  const output = document.getElementById("output");
+
+  
+  form.addEventListener("submit", function(event){
+  event.preventDefault();
+    
+  const title = document.getElementById("title").value;
+  const text = document.getElementById("text").value;
+
+    
+  output.textContent = `${title} ${text}!`;
 });
 </script>
 
+</div >
