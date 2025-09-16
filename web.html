@@ -1,12 +1,13 @@
+<script src="script.js"></script>
 
-
+<title>My Personal Blog</title>
 <div style="text-align: center;">
 
-<img src="image/journal.jpg" style="width:400px; height:auto;">
+  <img src="image/journal.jpg" style="width:400px; height:auto;">
 
-<h1 style="font-size: 50;">
-    MY PERSONAL BLOG
-</h1>
+  <h1 style="font-size: 50;">
+      MY PERSONAL BLOG
+  </h1>
 
 <h3 style="font-size: 22;">
     Sep 15th, 2025 <br>
@@ -24,19 +25,35 @@
 
 <div id="output"></div>
 <script>
+
   
+  index = 0
+  arr=[{
+    title: "sep 1st",
+    text:"abcdef"
+  },
+  {
+    title: "sep 2nd",
+    text :"defgh"
+  }]
+
   const form = document.getElementById("form");
   const output = document.getElementById("output");
 
-  
   form.addEventListener("submit", function(event){
   event.preventDefault();
-    
+
   const title = document.getElementById("title").value;
   const text = document.getElementById("text").value;
 
-    
-  output.textContent = `${title} ${text}!`;
+  arr.push({title, text})
+  
+  let result = "";
+  for (let i = 0; i < arr.length; i++){
+     result += `${arr[i].title} ${arr[i].text}!<br>`;
+  }
+  output.innerHTML = result;
+  
 });
 </script>
 
