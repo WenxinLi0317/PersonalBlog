@@ -1,27 +1,32 @@
-<script src="script.js"></script>
+
 
 <title>My Personal Blog</title>
-<div style="text-align: center;">
+<div style="text-align: center; background-image: url('image/bg.jpg');  background-position: center;">
 
   <img src="image/journal.jpg" style="width:400px; height:auto;">
 
-  <h1 style="font-size: 50;">
+   <h1 style="font-size: 48px; margin-bottom: 20px;">
+
       MY PERSONAL BLOG
   </h1>
 
-<h3 style="font-size: 22;">
-    Sep 15th, 2025 <br>
-    <br>today my dog died.<br>
-    <br>💔<br>
-</h3>
+<h3 style="font-size: 20px; margin-bottom: 40px;">
+   Sep 15th, 2025 <br><br>
+   Today my dog died.<br><br>
+   💔
+ </h3>
+
+ <h3>Enter Your Blog Entry Here</h3>
+
 
 <form id="form">
-  <label >Title:</label><br>
-  <input type="text" id="title"><br>
-  <label >Blog Text:</label><br>
-  <input type="text" id="text" ><br><br>
-  <input type="submit" value="Done">
+  <input type="text" id="title" placeholder="Enter Blog Title" style="width: 300px; padding: 10px; border-radius: 8px; border: none;">
+  <input type="text" id="text" placeholder="Enter Blog Text" style="width: 300px; padding: 10px; border-radius: 8px; border: none;" >
+ <br><br>
+ <input type="submit" value="Done" style="width: 300px; padding: 10px; border-radius: 8px; border: none; background: #ff5c5c; color:white">
+ <br><br>
 </form>
+
 
 <div id="output"></div>
 
@@ -68,7 +73,20 @@
   function updateOutput() {
     let result = "";
     for (let i = 0; i < arr.length; i++){
-      result += `${arr[i].title} ${arr[i].text}!<br>`;
+      result += `
+      <div style="background: rgba(255,255,255,0.8);
+                  
+                  margin: 20px auto;
+                  padding: 20px;
+                  border-radius: 12px;
+                  
+                  box-shadow: 10px rgba(0,0,0,0.2);">
+        <h2>${arr[i].title}</h2>
+        <p>${arr[i].text}</p>
+        <br>
+      </div>
+      `;
+
     }
     output.innerHTML = result;
   }
