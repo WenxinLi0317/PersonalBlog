@@ -24,37 +24,74 @@
 </form>
 
 <div id="output"></div>
-<script>
 
-  
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  const dbUrl = 'https://xyztqwtnhkcoxdixrnty.supabase.co';
+  const dbKey = 'sb_publishable_5LUxqf9TEsGpNxAFJirgcA_-7FQleNf'
+  const db = supabase.createClient(dbUrl, dbKey);
+
   index = 0
-  arr=[{
-    title: "sep 1st",
-    text:"abcdef"
-  },
-  {
-    title: "sep 2nd",
-    text :"defgh"
-  }]
+  arr=[]
+
+  fetchDataAndPopulateArray();
+
+  async function fetchDataAndPopulateArray() {
+    try {
+      const { data, error } = await db
+        .from('posts')
+        .select('title, text')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching data:', error);
+        return;
+      }
+
+      arr.length = 0;
+
+      data.forEach(item => {
+        arr.push({
+          title: item.title,
+          text: item.text
+        });
+      });
+      
+      updateOutput();
+      
+    } catch (err) {
+      console.error('fetch operation error: ', err);
+    }
+  }
+
+  function updateOutput() {
+    let result = "";
+    for (let i = 0; i < arr.length; i++){
+      result += `${arr[i].title} ${arr[i].text}!<br>`;
+    }
+    output.innerHTML = result;
+  }
 
   const form = document.getElementById("form");
   const output = document.getElementById("output");
 
-  form.addEventListener("submit", function(event){
-  event.preventDefault();
+  form.addEventListener("submit", async function(event){
+    event.preventDefault();
 
-  const title = document.getElementById("title").value;
-  const text = document.getElementById("text").value;
+    const title = document.getElementById("title").value;
+    const text = document.getElementById("text").value;
 
-  arr.push({title, text})
-  
-  let result = "";
-  for (let i = 0; i < arr.length; i++){
-     result += `${arr[i].title} ${arr[i].text}!<br>`;
-  }
-  output.innerHTML = result;
-  
-});
+    const {data, error} = await db
+      .from('posts')
+      .insert([{title: title, text: text}])
+    if(error) {
+      output.innerHTML = "Error: " + error.message;
+    } else {
+      arr.push({title, text})
+      updateOutput();
+    }
+  });
 </script>
 
-</div >
+</div>
