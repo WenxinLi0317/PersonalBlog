@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blog Post</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div id="post-content">
+    <h1 id="post-title">Loading...</h1>
+    <div id="post-body"></div>
+    <p id="post-date"></p>
+  </div>
+
+  <script>
+    const dbUrl = 'https://xyztqwtnhkcoxdixrnty.supabase.co';
+    const dbKey = 'sb_publishable_5LUxqf9TEsGpNxAFJirgcA_-7FQleNf';
+    const db = supabase.createClient(dbUrl, dbKey);
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const postTitle = urlParams.get('title');
+    
+    async function loadPost() {
+      const { data: post, error } = await db
+        .from('posts')
+        .select('*')
+        .eq('title', postTitle)
+        .single();
+      
+      if (error) {
+        document.getElementById('post-title').textContent = 'Post not found';
+        return;
+      }
+      
+      document.getElementById('post-title').textContent = post.title;
+      document.getElementById('post-body').textContent = post.text;
+      document.getElementById('post-date').textContent = 
+        `Published: ${new Date(post.created_at).toLocaleDateString()}`;
+    }
+    
+    loadPost();
+  </script>
+</body>
+</html>
