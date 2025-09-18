@@ -1,3 +1,4 @@
+
 <title>My Personal Blog</title>
 <div style="text-align: center; background-image: url('image/bg.jpg');  background-position: center;">
 
@@ -64,22 +65,25 @@
 
   function updateOutput() {
     let result = "";
-    for (let i = 0; i < arr.length; i++){
-      result += `
+    
+  for (let i = 0; i < arr.length; i++){
+    const link = arr[i].title.replace(/ /g, '+');
+    result += `
+    <a href="post.html?title=${link}" style="text-decoration: none; color: inherit;">
       <div style="background: rgba(255,255,255,0.8);
-                  
                   margin: 20px auto;
                   padding: 20px;
                   border-radius: 12px;
-                  
-                  box-shadow: 10px rgba(0,0,0,0.2);">
+                  box-shadow: 10px rgba(0,0,0,0.2);
+                  cursor: pointer;">
         <h2>${arr[i].title}</h2>
         <p>${arr[i].text}</p>
         <br>
+        <p>Click to view full post</p>
       </div>
-      `;
-
-    }
+    </a>
+    `;
+  }
     output.innerHTML = result;
   }
 
@@ -100,6 +104,9 @@
     } else {
       arr.push({title, text})
       updateOutput();
+      const link = "https://wenxinli0317.github.io/PersonalBlog/post.html?title=" + 
+                  title.replace(/ /g, '+');
+      window.location.href = link;
     }
   });
 </script>
