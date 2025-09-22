@@ -95,6 +95,11 @@
 
     const title = document.getElementById("title").value;
     const text = document.getElementById("text").value;
+    
+    if (!title.trim()) {
+      output.innerHTML = "Error: Title cannot be empty";
+      return;
+    }
 
     const {data, error} = await db
       .from('posts')
